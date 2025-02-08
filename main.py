@@ -6,7 +6,10 @@ data = [{"name":"W7ftAQaJ","marks":38},{"name":"OjmLX","marks":84},{"name":"3p0l
 
 
 @app.get("/api")
-async def api(name: list[str] = []): # Use list[str] for type hinting and automatic parsing
+async def api(name: Optional[List[str]] = None):  # Correct way to handle list query parameters
+    if name is None:
+        return {"marks": []} # Return empty list if no name provided
+
     marks = []
     for n in name:
         found = False
@@ -17,4 +20,4 @@ async def api(name: list[str] = []): # Use list[str] for type hinting and automa
                 break
         if not found:
             marks.append(None)
-    return {"marks": name}
+    return {"marks": marks}
