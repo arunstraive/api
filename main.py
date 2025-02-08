@@ -17,4 +17,4 @@ async def api(name: list[str] = []): # Use list[str] for type hinting and automa
                 break
         if not found:
             marks.append(None)
-    return {"marks": marks}
+    return {"marks": data}
