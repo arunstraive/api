@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI
 import json
 from typing import List, Optional
 
@@ -8,18 +8,16 @@ data = [{"name":"W7ftAQaJ","marks":38},{"name":"OjmLX","marks":84},{"name":"3p0l
 
 
 @app.get("/api")
-async def api(name: Optional[List[str]] = None):  # Correct way to handle list query parameters
+async def api(name: Optional[List[str]] = None):
     if name is None:
-        return {"marks": []} # Return empty list if no name provided
+        return {"marks": []}
 
     marks = []
     for n in name:
-        found = False
+        mark = None  # Initialize mark to None for each name
         for item in data:
-            if item['name'] == n:
-                marks.append(item['marks'])
-                found = True
-                break
-        if not found:
-            marks.append(None)
+            if item["name"] == n:
+                mark = item["marks"]
+                break  # Exit inner loop once found
+        marks.append(mark) # Append mark (either value or None)
     return {"marks": marks}
