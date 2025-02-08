@@ -1,5 +1,6 @@
 # main.py
 from fastapi import FastAPI
+import json
 
 app = FastAPI()
 with open("data.json", "r") as f:
